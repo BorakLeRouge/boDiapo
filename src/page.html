@@ -1,0 +1,50 @@
+<!doctype html>
+ 
+<html lang="fr">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="<chemin/>/page.css" rel="stylesheet" />
+    <title>BoNote</title>
+</head>
+ 
+<body>
+ 
+<h2>BoDiapo</h2> 
+
+<p>Choix du dossier contenant toutes les images :
+
+<button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span></p>
+
+<p>Taille des vignettes
+    <select id="tailleV">
+        <option>350</option>
+        <option>400</option>
+        <option>450</option>
+        <option>500</option>
+        <option selected="selected">550</option>
+        <option>600</option>
+        <option>700</option>
+        <option>800</option>
+     </select>     
+</p>
+
+<p>Taille des images
+    <select id="tailleI">
+        <option>idem</option>
+        <option>2000</option>
+        <option>2500</option>
+        <option selected="selected">3000</option>
+        <option>3500</option>
+        <option>4000</option>
+        <option>5000</option>
+    </select>     
+</p>
+
+<p><button onclick="genererDiaporama" >Générer Diaporama...</button></p>
+
+<script type="text/javascript" src="<chemin/>/pageInterface.js"></script>
+
+</body>
+</html>

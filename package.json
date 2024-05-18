@@ -3,6 +3,8 @@
   "displayName": "boDiapo",
   "description": "Génération d'un dipaorama html",
   "version": "0.0.1",
+  "publisher": "borakLeRouge",
+  "icon": "icone.png",
   "engines": {
     "vscode": "^1.80.0"
   },

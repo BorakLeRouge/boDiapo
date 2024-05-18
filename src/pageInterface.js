@@ -10,6 +10,7 @@ window.addEventListener('message', event => {
     if (message.action == 'choisirDossier') {
         dossier = message.dossier ;
         document.getElementById('dossier').innerHTML = dossier ;
+        document.getElementById('generateBtn').removeAttribute("disabled") ;
     }
 } )
 
@@ -18,7 +19,15 @@ function choisirDossier() {
     vscode.postMessage({action: 'choisirDossier'})
 }
 
-
+function genererDiaporama() {
+    let tailleV = document.getElementById('tailleV').value ;
+    let tailleI = document.getElementById('tailleI').value ;
+    let tailleT = document.getElementById('tailleT').value ;
+    let titre   = document.getElementById('titre').value ;
+    vscode.postMessage({action: 'genererDiaporama'
+        , tailleV, tailleI, tailleT, dossier, titre
+    }) ;
+}
 
 
 

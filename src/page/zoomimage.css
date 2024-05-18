@@ -1,0 +1,123 @@
+div#zoomimage_fond 
+{  background-color: rgba(0,0,0,0.7) ;
+   position: absolute ;
+   position: fixed ;
+   top: 0 ;
+   left: 0 ;
+   width: 100vw ;
+   height: 100vh ;
+   margin: 0 ;
+   padding: 0 ;
+   text-align: center ;
+}
+
+div#zoomimage_cadre_0 
+{  position: absolute ;
+   top: 0 ;
+   left: 0 ;
+   margin: 0 ;
+   padding: 0 ;
+   width: 100vw ;
+   height: 100vh ;
+   text-align: center ;
+}
+
+div#zoomimage_cadre_0 p 
+{  display: inline-block ;
+   margin: 16px 0 16px 0 ;
+   padding: 5px ;
+   text-align: center ;
+   background-color: white ;
+   font-size: 16px ;
+   font-family: Verdana, sans-serif ;
+   color: #1A1A1A ;
+   vertical-align: middle ;
+}
+
+div#zoomimage_cadre_1, div#zoomimage_cadre_2 
+{  position: absolute ;
+   top: 0 ;
+   left: 0 ;
+   margin: 0 ;
+   padding: 0 ;
+   width: 100vw ;
+   height: 100vh ;
+   text-align: center ;
+}
+
+div#zoomimage_cadre_0::before, div#zoomimage_cadre_1::before , div#zoomimage_cadre_2::before 
+{  content: '' ;
+   display: inline-block ;
+   vertical-align: middle ;
+   width: 0 ;
+   height: 100vh ;
+   margin: 0 ;
+   padding: 0 ;
+}
+
+img#zoomimage_image_1, img#zoomimage_image_2 
+{  display: inline-block ;
+   vertical-align: middle ;
+   border-color: white ;
+   border-width: 3px ;
+   border-style: solid ;
+   margin: 0 ;
+   padding: 0 ;
+   min-width: 0 ;
+   min-height: 0 ;
+   max-width: 90vw ;
+   max-height: 90vh ;
+   max-width: calc(100vw - 42px) ;
+   max-height: calc(100vh - 26px) ;
+}
+
+img#zoomimage_closeload 
+{  position: absolute ;
+   top: 1px ;
+   right: 1px ;
+}
+
+div#zoomimage_fond img.zoomimage_gauche 
+{  position: absolute ;
+   display: block ;
+   bottom: 3px ;
+   left: 50% ;
+   margin: 0 ;
+   margin-left: -48px ;
+   padding: 0 ;
+   border-style: none ;
+}
+
+div#zoomimage_fond img.zoomimage_play 
+{  position: absolute ;
+   display: block ;
+   bottom: 3px ;
+   left: 50% ;
+   margin: 0 ;
+   margin-left: -15px ;
+   padding: 0 ;
+   border-style: none ;
+}
+
+div#zoomimage_fond img.zoomimage_droite 
+{  position: absolute ;
+   display: block ;
+   bottom: 3px ;
+   left: 50% ;
+   margin: 0 ;
+   margin-left: +18px ;
+   padding: 0 ;
+   border-style: none ;
+}
+
+div#zoomimage_fond img.zoomimage_croix 
+{  position: absolute ;
+   display: block ;
+   bottom: 3px ;
+   left: 50% ;
+   margin: 0 ;
+   margin-left: +70px ;
+   padding: 0 ;
+   border-style: none ;
+}
+

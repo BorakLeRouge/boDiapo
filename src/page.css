@@ -26,6 +26,9 @@ button {
 button:hover {
     background-color: var(--vscode-button-hoverBackground);
 }
+button:disabled {
+    background-color: var(--vscode-disabledForeground);
+}
 input[type="checkbox"] {
     position: relative ;
     top: 0.15em ;

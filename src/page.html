@@ -13,6 +13,11 @@
  
 <h2>BoDiapo</h2> 
 
+<p>Titre : <input id="titre" type="text"
+    value="Le titre"
+    maxlength="300" size="100" /></p>
+
+
 <p>Choix du dossier contenant toutes les images :
 
 <button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span></p>
@@ -32,7 +37,7 @@
 
 <p>Taille des images
     <select id="tailleI">
-        <option>idem</option>
+        <option>Sans retaillage</option>
         <option>2000</option>
         <option>2500</option>
         <option selected="selected">3000</option>
@@ -40,9 +45,14 @@
         <option>4000</option>
         <option>5000</option>
     </select>     
+    <select id="tailleT">
+        <option>Hauteur ou Largeur</option>
+        <option>Hauteur</option>
+        <option>Largeur</option>
+    </select>     
 </p>
 
-<p><button onclick="genererDiaporama" >Générer Diaporama...</button></p>
+<p><button id="generateBtn" onclick="genererDiaporama()" disabled="disabled">Générer Diaporama...</button></p>
 
 <script type="text/javascript" src="<chemin/>/pageInterface.js"></script>
 

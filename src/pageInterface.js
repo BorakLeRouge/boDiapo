@@ -11,6 +11,7 @@ window.addEventListener('message', event => {
         dossier = message.dossier ;
         document.getElementById('dossier').innerHTML = dossier ;
         document.getElementById('generateBtn').removeAttribute("disabled") ;
+        document.getElementById('visuResultat').removeAttribute("disabled") ;
     }
 } )
 
@@ -20,18 +21,21 @@ function choisirDossier() {
 }
 
 function genererDiaporama() {
-    let tailleV = document.getElementById('tailleV').value ;
-    let tailleI = document.getElementById('tailleI').value ;
-    let tailleT = document.getElementById('tailleT').value ;
-    let titre   = document.getElementById('titre').value ;
-    let fondColor   = document.getElementById('fondColor').value ;
+    let tailleV      = document.getElementById('tailleV').value ;
+    let tailleI      = document.getElementById('tailleI').value ;
+    let tailleT      = document.getElementById('tailleT').value ;
+    let titre        = document.getElementById('titre').value ;
+    let fondColor    = document.getElementById('fondColor').value ;
     let texteColor   = document.getElementById('texteColor').value ;
+    let presentation = document.getElementById('presentation').value ;
     vscode.postMessage({action: 'genererDiaporama'
-        , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor
+        , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor, presentation
     }) ;
 }
 
-
+function visuResultat() {
+    vscode.postMessage({action: 'visuResultat'})
+}
 
 // * * * Fonction CLOG à regroupement * * *
 clog('Interface active.');

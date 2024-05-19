@@ -12,7 +12,9 @@ ul {
     padding-inline-start: 1.2em ;
 }
 
-
+.textCentre {
+    text-align: center ;
+}
 
 input, select {
     background-color: var(--vscode-input-background);
@@ -35,4 +37,10 @@ input[type="checkbox"] {
     background-color: var(--vscode-checkbox-background);
     color: var(--vscode-checkbox-foreground);
     border-color: var(--vscode-checkbox-border);
+}
+
+fieldset {
+    margin-top: 0.8em ;
+    margin-bottom: 1.2em ;
+    border-radius: 0.7em ;
 }

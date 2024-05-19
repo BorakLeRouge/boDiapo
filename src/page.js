@@ -5,7 +5,7 @@ const fs            = require('fs') ;
 const retailleImage = require('./retailleImage.js')
 
 const outputMngr    = require('./outputMngr.js') ;
-outputMngr.clogActivation() ;
+//outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // Affichage de la page
@@ -43,6 +43,10 @@ exports.affichPage = function(context) {
                     genererDiaporama(context, panel.webview, message) ;
                     break ;
                 }
+                case 'visuResultat': {
+                    visuResultat() ;
+                    break ;
+                }
                 default : {
                     vscode.window.showErrorMessage('Message non traité : '+message.action);
                     break ;
@@ -58,11 +62,23 @@ exports.affichPage = function(context) {
 
 // * * * Préparation de la page * * *
 function preparationPageHtml(context, webview) {
+    // Adresse de base
     let adrFich = path.join(context.extensionPath, 'src', 'page.html') ;
     let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src'));
+    let adrPage = path.join(context.extensionPath, 'src', 'page') ;
 
+    // Récupération des types de présentation
+    let optionsPres = '' ;
+    let dossiersPres = fs.readdirSync(adrPage) ;
+    for (let dossier of dossiersPres) {
+        if (dossier.substring(0,1) != '.') {
+            optionsPres += '<option>'+dossier+'</option>' ;
+        }
+    }
+
+    // Préparation page
     let contenuPage = fs.readFileSync(adrFich, 'utf-8') ;
-    contenuPage = contenuPage.replaceAll('<chemin/>', cheminW) ;
+    contenuPage = contenuPage.replaceAll('<chemin/>', cheminW).replaceAll('<optionsPres/>', optionsPres) ;
     return contenuPage ;
 }
 
@@ -156,7 +172,7 @@ async function genererDiaporama(context, webview, message)  {
     }
 
     // Preparation de la page
-    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor) ;
+    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation) ;
 }
 
 // * * * Purge avant insertion
@@ -172,13 +188,13 @@ function purgeFichier(dossierPrincipal) {
 }
 
 // * * * Alimentation restante du dossier, element html,css
-function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor) {
+function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation) {
     // Préparation Variable
-    let adrSource = path.join(context.extensionPath, 'src', 'page') ;
+    let adrSource    = path.join(context.extensionPath, 'src', 'page', presentation) ;
     let adrZoomimage = path.join(context.extensionPath, 'src', 'zoomimage') ;
 
     // Preparation du fichier index.html
-    let ficSou = path.join(adrSource, 'index.html') ;
+    let ficSou = path.join(adrSource,'index.html') ;
     let ficCib = path.join(dossierPrincipal, 'index.html') ;
     let cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**Titre**', titre).replaceAll('**Prep**', prep) ;
     fs.writeFileSync(ficCib, cont, 'utf8') ;
@@ -197,4 +213,11 @@ function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, tex
         ficCib = path.join(dossierPrincipal, nomFic) ;
         fs.copyFileSync(ficSou, ficCib)
     }
+}
+
+// * * * Visualisation du résultat * * *
+function visuResultat() {
+    let fichierIndex = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'index.html') ;
+    fichierIndex = vscode.Uri.file(fichierIndex) ;
+    vscode.env.openExternal(fichierIndex) ;
 }

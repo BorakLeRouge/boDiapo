@@ -2,7 +2,7 @@
   "name": "bodiapo",
   "displayName": "boDiapo",
   "description": "Génération d'un dipaorama html",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "borakLeRouge",
   "icon": "icone.png",
   "engines": {

@@ -16,6 +16,12 @@
 <p>Choix du dossier contenant toutes les images :
     <button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span></p>
 
+<fieldset><legend>Présentation</legend>
+
+<p>Style de page :
+    <select id="presentation"><optionsPres/></select>
+</p>
+
 <p>Titre : <input id="titre" type="text"
     value="Le titre"
     maxlength="300" size="100" /></p>
@@ -27,8 +33,10 @@
 <p>Couleur du texte : <input id="texteColor" type="color"
     value="#FFFFFF"
     maxlength="7" size="7" /></p>
+</fieldset>
 
-<p>Taille des vignettes
+<fieldset><legend>Images</legend>
+<p>Taille des vignettes :
     <select id="tailleV">
         <option value="0">sans vignette</option>
         <option>300</option>
@@ -42,10 +50,15 @@
         <option>800</option>
         <option>900</option>
         <option>1000</option>
-     </select>     
+     </select>      
+     <select id="tailleT">
+         <option>Hauteur ou Largeur</option>
+         <option>Hauteur</option>
+         <option>Largeur</option>
+     </select>   
 </p>
 
-<p>Taille des images
+<p>Taille des images :
     <select id="tailleI">
         <option>Sans retaillage</option>
         <option value="0">sans image</option>
@@ -58,15 +71,12 @@
         <option>3500</option>
         <option>4000</option>
         <option>5000</option>
-    </select>     
-    <select id="tailleT">
-        <option>Hauteur ou Largeur</option>
-        <option>Hauteur</option>
-        <option>Largeur</option>
-    </select>     
+    </select>      
 </p>
+</fieldset>
 
-<p><button id="generateBtn" onclick="genererDiaporama()" disabled="disabled">Générer Diaporama...</button></p>
+<p class="textCentre"><button id="generateBtn" onclick="genererDiaporama()" disabled="disabled">Générer Diaporama...</button> - 
+<button id="visuResultat" onclick="visuResultat()" disabled="disabled">Voir le résultat...</button></p>
 
 <script type="text/javascript" src="<chemin/>/pageInterface.js"></script>
 

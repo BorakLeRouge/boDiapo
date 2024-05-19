@@ -13,17 +13,25 @@
  
 <h2>BoDiapo</h2> 
 
+<p>Choix du dossier contenant toutes les images :
+    <button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span></p>
+
 <p>Titre : <input id="titre" type="text"
     value="Le titre"
     maxlength="300" size="100" /></p>
 
+<p>Couleur du fond : <input id="fondColor" type="color"
+    value="#909090"
+    maxlength="7" size="7" /></p>
 
-<p>Choix du dossier contenant toutes les images :
-
-<button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span></p>
+<p>Couleur du texte : <input id="texteColor" type="color"
+    value="#FFFFFF"
+    maxlength="7" size="7" /></p>
 
 <p>Taille des vignettes
     <select id="tailleV">
+        <option value="0">sans vignette</option>
+        <option>300</option>
         <option>350</option>
         <option>400</option>
         <option>450</option>
@@ -32,12 +40,18 @@
         <option>600</option>
         <option>700</option>
         <option>800</option>
+        <option>900</option>
+        <option>1000</option>
      </select>     
 </p>
 
 <p>Taille des images
     <select id="tailleI">
         <option>Sans retaillage</option>
+        <option value="0">sans image</option>
+        <option>1000</option>
+        <option>1200</option>
+        <option>1600</option>
         <option>2000</option>
         <option>2500</option>
         <option selected="selected">3000</option>

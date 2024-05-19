@@ -24,8 +24,10 @@ function genererDiaporama() {
     let tailleI = document.getElementById('tailleI').value ;
     let tailleT = document.getElementById('tailleT').value ;
     let titre   = document.getElementById('titre').value ;
+    let fondColor   = document.getElementById('fondColor').value ;
+    let texteColor   = document.getElementById('texteColor').value ;
     vscode.postMessage({action: 'genererDiaporama'
-        , tailleV, tailleI, tailleT, dossier, titre
+        , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor
     }) ;
 }
 

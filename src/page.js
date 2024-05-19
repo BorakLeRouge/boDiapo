@@ -111,6 +111,9 @@ async function genererDiaporama(context, webview, message)  {
     // * dossier principal
     let dossierPrincipal = vscode.workspace.workspaceFolders[0].uri.fsPath ;
 
+    // Purge préparatoire
+    purgeFichier(dossierPrincipal) ;
+
     // * Contenu du dossier image
     let fichiersImages = fs.readdirSync(message.dossier) ;
 
@@ -132,23 +135,47 @@ async function genererDiaporama(context, webview, message)  {
         let fichCib = path.join(dossierPrincipal, newImg) ;
 
         // Traitement de l'image principale
-        await retailleImage.retailleImage(fichImg, fichCib, message.tailleI, 'Hauteur ou Largeur') ;
+        if (message.tailleI != '0') {
+            await retailleImage.retailleImage(fichImg, fichCib, message.tailleI, 'Hauteur ou Largeur') ;
+        }
         
         // Traitement de la vignette
-        fichCib = path.join(dossierPrincipal, newVng) ;
-        await retailleImage.retailleImage(fichImg, fichCib, message.tailleV, message.tailleT) ;
+        if (message.tailleV != '0') {
+            fichCib = path.join(dossierPrincipal, newVng) ;
+            await retailleImage.retailleImage(fichImg, fichCib, message.tailleV, message.tailleT) ;
+        }
 
         // Preparation contenu html
-        prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ;
+        if (message.tailleI != '0' && message.tailleV != '0') {
+            prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+        } else if (message.tailleI != '0'){
+            prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+        } else if (message.tailleV != '0'){
+            prep += '<img src="'+newVng+'" alt="'+newAlt+'" class="photo" />' + "\r\n" ; 
+        }
     }
 
     // Preparation de la page
-    alimentationPage(context, dossierPrincipal, message.titre, prep) ;
+    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor) ;
+}
+
+// * * * Purge avant insertion
+
+function purgeFichier(dossierPrincipal) {
+    let fichiers = fs.readdirSync(dossierPrincipal) ;
+    for (let nomFic of fichiers) {
+        if (nomFic.substring(0,5) == 'index' || nomFic.substring(0,9) == 'zoomimage' || nomFic.substring(0,5) == 'image' || nomFic.substring(0,8) == 'vignette') { 
+            let fich2delete = path.join(dossierPrincipal, nomFic) ;
+            fs.unlinkSync(fich2delete) ; 
+        }
+    }  
 }
 
 // * * * Alimentation restante du dossier, element html,css
-function alimentationPage(context, dossierPrincipal, titre, prep) {
+function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor) {
+    // Préparation Variable
     let adrSource = path.join(context.extensionPath, 'src', 'page') ;
+    let adrZoomimage = path.join(context.extensionPath, 'src', 'zoomimage') ;
 
     // Preparation du fichier index.html
     let ficSou = path.join(adrSource, 'index.html') ;
@@ -156,12 +183,17 @@ function alimentationPage(context, dossierPrincipal, titre, prep) {
     let cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**Titre**', titre).replaceAll('**Prep**', prep) ;
     fs.writeFileSync(ficCib, cont, 'utf8') ;
 
-    // Recopie des autres fichiers
+    // Preparation du fichier style.css
+    ficSou = path.join(adrSource, 'index.css') ;
+    ficCib = path.join(dossierPrincipal, 'index.css') ;
+    cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**fondColor**', fondColor).replaceAll('**texteColor**', texteColor) ;
+    fs.writeFileSync(ficCib, cont, 'utf8') ;
 
-    let fichiers = fs.readdirSync(adrSource) ;
+    // Recopie des fichiers zoomimage
+    let fichiers = fs.readdirSync(adrZoomimage) ;
     for (let nomFic of fichiers) {
-        if (nomFic == 'index.html' || nomFic.substring(0,1) == '.') { continue ; }
-        ficSou = path.join(adrSource, nomFic) ;
+        if (nomFic.substring(0,1) == '.') { continue ; }
+        ficSou = path.join(adrZoomimage, nomFic) ;
         ficCib = path.join(dossierPrincipal, nomFic) ;
         fs.copyFileSync(ficSou, ficCib)
     }

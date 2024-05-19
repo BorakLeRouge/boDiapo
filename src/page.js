@@ -10,7 +10,6 @@ function clog(...tb) { outputMngr.clog(tb) }
 
 // Affichage de la page
 exports.affichPage = function(context) {
-    vscode.window.showInformationMessage('COUCOU') ;
 
     const panel = vscode.window.createWebviewPanel(
         'boDiapo',

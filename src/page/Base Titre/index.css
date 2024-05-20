@@ -37,26 +37,38 @@ a:hover, a:focus, a:active
 {  outline: none ;
 }
 
-img.photo 
-{  margin: 8px ;
-   padding: 9px ;
-   background-color: white ;
-   border-color: #828282 ;
-   border-style: solid ;
-   border-width: 1px ;
-}
-
 img.mini 
 {  margin: 0px ;
    border-style: none ;
    border-width: 0px ;
 }
 
-a:hover img 
-{  background-color: #FFFF7D ;
-   box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.3) ;
+
+/* --- ZoomImage Titre --- */
+
+.blocPhoto 
+{  display: inline-block ;
    position: relative ;
-   top: -3px ;
-   left: -3px ;
+   border-style: solid ;
+   border-color: #ccc ;
+   background-color: white ;
+   border-width: 1px ;
+   margin: 4px ;
+   padding-bottom: 20px ;
+   color: #888 ;
+   font-size: 0.87em ;
+   text-align: left ;
+   overflow: hidden ;
 }
 
+.comment 
+{  position:absolute ;
+   left: 8px ;
+   bottom: 3px ;
+   height: 20px
+}
+
+.zoomimage 
+{  margin: 8px ;
+   display: inline-block ;
+}

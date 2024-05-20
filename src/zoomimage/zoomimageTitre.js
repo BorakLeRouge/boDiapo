@@ -196,11 +196,7 @@ zoomImage = {
             ob[idx].onclick = function() { zeThis.zoomimage(i); return false ;} ;
             ob[idx].className = ob[idx].className.replace('zoomimagOK', 'zoomimage') ; 
             let temp = ob[idx].nextSibling.nextSibling.innerHTML ; 
-            let p  = temp.indexOf("<br") ;
-            let t1 = temp.substr(0, p) ;
-            let t2 = temp.substr(p) ;  
-            p  = t2.indexOf(">") + 1
-            this.zoomimageTITRE[this.zoomimageCOUNT] = t1 + " - " + t2.substr(p) ; 
+            this.zoomimageTITRE[this.zoomimageCOUNT] = temp ; 
             if (this.zoomimageTITRE[this.zoomimageCOUNT] == ' - ') { this.zoomimageTITRE[this.zoomimageCOUNT] = '' } ; 
          }
       } 

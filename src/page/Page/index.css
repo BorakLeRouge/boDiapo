@@ -52,7 +52,7 @@ a:hover, a:focus, a:active
 img.photo 
 {  margin: 8px ;
    padding: 9px ;
-   background-color: **texteColor** ;
+   background-color: white ;
    border-color: #828282 ;
    border-style: solid ;
    border-width: 1px ;

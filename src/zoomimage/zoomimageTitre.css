@@ -135,7 +135,7 @@ span.blocPhoto:hover
 {  position: relative ;
    top: -5px ;
    left: -5px ;
-   box-shadow: 6px 6px 8px -1px #606060 ;
+   box-shadow: 6px 6px 8px -1px rgba(0, 0, 0, 0.7) ;
 }
 
 @media handheld, only screen and (max-width: 980px)

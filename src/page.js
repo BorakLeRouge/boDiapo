@@ -160,13 +160,29 @@ async function genererDiaporama(context, webview, message)  {
             await retailleImage.retailleImage(fichImg, fichCib, message.tailleV, message.tailleT) ;
         }
 
-        // Preparation contenu html
-        if (message.tailleI != '0' && message.tailleV != '0') {
-            prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
-        } else if (message.tailleI != '0'){
-            prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
-        } else if (message.tailleV != '0'){
-            prep += '<img src="'+newVng+'" alt="'+newAlt+'" class="photo" />' + "\r\n" ; 
+        if (siZoomImageTitre(context, message.presentation)) {
+            let titre = nom2Titre(nomImg) ;
+            // Preparation contenu html avec titre
+            prep += "\r\n" + '<span class="blocPhoto">' + "\r\n"  ;
+            if (message.tailleI != '0' && message.tailleV != '0') {
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+            } else if (message.tailleI != '0'){
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+            } else if (message.tailleV != '0'){
+                prep += '<a href="'+newVng+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+            }
+            prep += '<span class="comment">'+titre+'</span>' + "\r\n"  ;
+            prep += '</span>' + "\r\n\r\n"  ;
+
+        } else {
+            // Preparation contenu html std
+            if (message.tailleI != '0' && message.tailleV != '0') {
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+            } else if (message.tailleI != '0'){
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+            } else if (message.tailleV != '0'){
+                prep += '<img src="'+newVng+'" alt="'+newAlt+'" class="photo" />' + "\r\n" ; 
+            }
         }
     }
 
@@ -219,4 +235,19 @@ function visuResultat() {
     let fichierIndex = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'index.html') ;
     fichierIndex = vscode.Uri.file(fichierIndex) ;
     vscode.env.openExternal(fichierIndex) ;
+}
+
+// * * * Detection si titre * * *
+function siZoomImageTitre(context, choixPage) {
+    let adrPage = path.join(context.extensionPath, 'src', 'page') ;
+    let fichIndex = path.join(adrPage, choixPage, 'index.html') ;
+    let cont = fs.readFileSync(fichIndex, 'utf8') ;
+    return cont.includes('zoomimageTitre.js') ;
+}
+
+// * * * Transformation nomfichier en titre * * *
+function nom2Titre(nomDuFichier) {
+    let p     = nomDuFichier.lastIndexOf(".") ; // pour retrait suffixe
+    let titre = nomDuFichier.substring(0,p).replaceAll('_', ' ') ;
+    return titre
 }

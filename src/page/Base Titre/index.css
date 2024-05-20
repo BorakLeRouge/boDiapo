@@ -65,7 +65,8 @@ img.mini
 {  position:absolute ;
    left: 8px ;
    bottom: 3px ;
-   height: 20px
+   height: 20px ;
+   overflow: hidden ;
 }
 
 .zoomimage 

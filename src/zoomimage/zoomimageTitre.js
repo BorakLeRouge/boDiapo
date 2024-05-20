@@ -196,7 +196,15 @@ zoomImage = {
             ob[idx].onclick = function() { zeThis.zoomimage(i); return false ;} ;
             ob[idx].className = ob[idx].className.replace('zoomimagOK', 'zoomimage') ; 
             let temp = ob[idx].nextSibling.nextSibling.innerHTML ; 
-            this.zoomimageTITRE[this.zoomimageCOUNT] = temp ; 
+            let p  = temp.indexOf("<br") ;
+            if (p >= 0) {
+               let t1 = temp.substr(0, p) ;
+               let t2 = temp.substr(p) ;  
+               p  = t2.indexOf(">") + 1
+               this.zoomimageTITRE[this.zoomimageCOUNT] = t1 + " - " + t2.substr(p) ; 
+            } else {
+               this.zoomimageTITRE[this.zoomimageCOUNT] = temp
+            }
             if (this.zoomimageTITRE[this.zoomimageCOUNT] == ' - ') { this.zoomimageTITRE[this.zoomimageCOUNT] = '' } ; 
          }
       } 

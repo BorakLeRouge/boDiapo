@@ -60,3 +60,9 @@ a:hover img
    left: -3px ;
 }
 
+p.retourhome {
+   text-align: center;
+}
+p.retourhome a {
+   color: **texteColor** ;
+}

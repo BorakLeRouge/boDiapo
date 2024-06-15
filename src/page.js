@@ -187,7 +187,7 @@ async function genererDiaporama(context, webview, message)  {
     }
 
     // Preparation de la page
-    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation) ;
+    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation, message.retourHome) ;
 }
 
 // * * * Purge avant insertion
@@ -203,15 +203,21 @@ function purgeFichier(dossierPrincipal) {
 }
 
 // * * * Alimentation restante du dossier, element html,css
-function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation) {
+function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation, retourHome) {
     // Préparation Variable
     let adrSource    = path.join(context.extensionPath, 'src', 'page', presentation) ;
     let adrZoomimage = path.join(context.extensionPath, 'src', 'zoomimage') ;
 
+    // Si retourHome prévu
+    let lienRetour = '' ;
+    if (retourHome == 'Oui') {
+        lienRetour = '<p class="retourhome"><a href="..">Retour.</a></p>' ;
+    }
+
     // Preparation du fichier index.html
     let ficSou = path.join(adrSource,'index.html') ;
     let ficCib = path.join(dossierPrincipal, 'index.html') ;
-    let cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**Titre**', titre).replaceAll('**Prep**', prep) ;
+    let cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**Titre**', titre).replaceAll('**Prep**', prep).replaceAll('**Retour**', lienRetour) ;
     fs.writeFileSync(ficCib, cont, 'utf8') ;
 
     // Preparation du fichier style.css

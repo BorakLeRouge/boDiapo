@@ -86,7 +86,8 @@ span.blocPhoto:hover {
 }
 
 .comment 
-{  position:absolute ;
+{  font-family: "Century Gothic", Helvetica, Verdana, sans-serif ;
+   position:absolute ;
    left: 8px ;
    bottom: 3px ;
    height: 20px ;
@@ -96,4 +97,11 @@ span.blocPhoto:hover {
 .zoomimage 
 {  margin: 8px ;
    display: inline-block ;
+}
+
+p.retourhome {
+   text-align: center;
+}
+p.retourhome a {
+   color: #335c91 ;
 }

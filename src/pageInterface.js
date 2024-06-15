@@ -28,8 +28,10 @@ function genererDiaporama() {
     let fondColor    = document.getElementById('fondColor').value ;
     let texteColor   = document.getElementById('texteColor').value ;
     let presentation = document.getElementById('presentation').value ;
-    vscode.postMessage({action: 'genererDiaporama'
-        , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor, presentation
+    let retourHome   = document.getElementById('retourHome').value ;
+    vscode.postMessage({
+        action: 'genererDiaporama'
+        , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor, presentation, retourHome
     }) ;
 }
 

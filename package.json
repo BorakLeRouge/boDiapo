@@ -23,6 +23,11 @@
         "command": "bodiapo.bodiapo",
         "title": "Génération d'un diaporama html",
         "category": "boDiapo"
+      } ,
+      {
+        "command": "bodiapo.retaillage",
+        "title": "Retaillage d'image",
+        "category": "boDiapo"
       }
     ]
   },

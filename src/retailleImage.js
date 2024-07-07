@@ -7,10 +7,10 @@ const outputMngr    = require('./outputMngr.js') ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 
-const retailleImage = async function(source, cible, taille, type) {
+const retailleImage = async function({source, cible, taille, type}) {
     // Retaillage d'une Image en JPG
     // - source : Fichier en entrée
-    // - cible  : Fichie en sortie
+    // - cible  : Fichier en sortie
     // - Taille maximum de l'image (valeur ou 'sans')
     // - Maximum pour : 'hauteur', 'largeur', 'hauteur ou largeur'
 

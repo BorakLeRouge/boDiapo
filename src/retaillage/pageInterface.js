@@ -21,11 +21,11 @@ function choisirImage() {
 function demandeRetaillage() {
     let taille       = document.getElementById('taille').value ;
     let rapport      = document.getElementById('rapport').value ;
-    let remplacement = document.getElementById('remplacement').value ;
+    let quality      = document.getElementById('quality').value ;
     vscode.postMessage({
         action: 'retaillage',
         fichier: image,
-        taille, rapport, remplacement
+        taille, rapport, quality
     }) ;
     image = '' ;
     document.getElementById('image').innerHTML = '' ;

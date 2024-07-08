@@ -7,7 +7,7 @@ const outputMngr    = require('./outputMngr.js') ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 
-const retailleImage = async function({source, cible, taille, type}) {
+const retailleImage = async function({source, cible, taille, type, quality="65"}) {
     // Retaillage d'une Image en JPG
     // - source : Fichier en entrée
     // - cible  : Fichier en sortie
@@ -48,7 +48,7 @@ const retailleImage = async function({source, cible, taille, type}) {
         await sharp(source)
         .resize(w, h)
         .toFormat('jpeg')
-        .jpeg({quality: 65})
+        .jpeg({quality: Number(quality)})
         .toFile(cible)
         ;
     } catch(e) {

@@ -45,7 +45,7 @@ const retaillage = function(context) {
                         fichier:        message.fichier,
                         taille:         message.taille,
                         rapport:        message.rapport,
-                        remplacement:   message.remplacement
+                        quality:        message.quality
                 }) ;
                     break ;
                 }
@@ -85,7 +85,7 @@ async function choisirImage(context, webview) {
     clog('vscode.workspace.workspaceFolders[0]?.uri', vscode.workspace.workspaceFolders[0]?.uri)
     const OpenDialogOptions = {
         filters: {
-            'Images': ['jpg', 'png', 'gif']
+            'Images': ['jpg', 'png', 'gif', 'webp', 'tif']
         },
         canSelectMany:      false,
         openLabel:          'Choisir une image',
@@ -108,11 +108,18 @@ async function choisirImage(context, webview) {
 }
 
 // * * * Retailler l'image * * *
-async function retaillageImage({context, fichier, taille, rapport, remplacement}) {
-    clog('demandeRetaillage', fichier, taille, rapport, remplacement) ;
+async function retaillageImage({context, fichier, taille, rapport, quality}) {
     source = fichier ;
-    cible  = fichier ;
-    if (remplacement == 'Non') {
-        let nom = path.fichier
+    let decoup = path.parse(source) ;
+    cible = path.join(decoup.dir, decoup.name + ' retail' + decoup.ext) ;
+    // Traitement de l'image principale
+    if (taille != '0') {
+        await retailleImage.retailleImage({
+            source:  source, 
+            cible:   cible, 
+            taille:  taille,
+            type:    rapport, 
+            quality: quality
+        }) ;
     }
 }

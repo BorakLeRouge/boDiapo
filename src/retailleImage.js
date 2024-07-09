@@ -19,6 +19,7 @@ const retailleImage = async function({source, cible, taille, type, quality="65"}
     try {
         image =  await sharp(source).metadata() ;
     } catch(e) {
+        vscode.window.showErrorMessage('Erreur de récupération d\'info ' + e.toString())
         clog('Anomalie', e) ;
         return
     }
@@ -52,6 +53,7 @@ const retailleImage = async function({source, cible, taille, type, quality="65"}
         .toFile(cible)
         ;
     } catch(e) {
+        vscode.window.showErrorMessage('Erreur de retaillade ' + e.toString())
         clog('Anomalie', e) ;
         return
     }

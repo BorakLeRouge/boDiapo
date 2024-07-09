@@ -29,7 +29,6 @@ const retaillage = function(context) {
     // * * * Gestion des messages entrants * * *
     panel.webview.onDidReceiveMessage(
         message => {
-            clog('message', message)
             switch (message.action) {
                 case 'clog': {
                     clog('Interface clog', message.message) ;
@@ -82,7 +81,6 @@ function preparationPageHtml(context, webview) {
 // * * * Choisir l'image à traiter * * *
 async function choisirImage(context, webview) {
     // Option d'ouverture
-    clog('vscode.workspace.workspaceFolders[0]?.uri', vscode.workspace.workspaceFolders[0]?.uri)
     const OpenDialogOptions = {
         filters: {
             'Images': ['jpg', 'png', 'gif', 'webp', 'tif']

@@ -7,10 +7,10 @@ const outputMngr    = require('./outputMngr.js') ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 
-const retailleImage = async function(source, cible, taille, type) {
+const retailleImage = async function({source, cible, taille, type, quality="65"}) {
     // Retaillage d'une Image en JPG
     // - source : Fichier en entrée
-    // - cible  : Fichie en sortie
+    // - cible  : Fichier en sortie
     // - Taille maximum de l'image (valeur ou 'sans')
     // - Maximum pour : 'hauteur', 'largeur', 'hauteur ou largeur'
 
@@ -19,6 +19,7 @@ const retailleImage = async function(source, cible, taille, type) {
     try {
         image =  await sharp(source).metadata() ;
     } catch(e) {
+        vscode.window.showErrorMessage('Erreur de récupération d\'info ' + e.toString())
         clog('Anomalie', e) ;
         return
     }
@@ -48,10 +49,11 @@ const retailleImage = async function(source, cible, taille, type) {
         await sharp(source)
         .resize(w, h)
         .toFormat('jpeg')
-        .jpeg({quality: 65})
+        .jpeg({quality: Number(quality)})
         .toFile(cible)
         ;
     } catch(e) {
+        vscode.window.showErrorMessage('Erreur de retaillade ' + e.toString())
         clog('Anomalie', e) ;
         return
     }

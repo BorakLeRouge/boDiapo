@@ -151,13 +151,22 @@ async function genererDiaporama(context, webview, message)  {
 
         // Traitement de l'image principale
         if (message.tailleI != '0') {
-            await retailleImage.retailleImage(fichImg, fichCib, message.tailleI, 'Hauteur ou Largeur') ;
+            await retailleImage.retailleImage({
+                source: fichImg, 
+                cible: fichCib, 
+                taille: message.tailleI,
+                type: 'Hauteur ou Largeur'
+            }) ;
         }
         
         // Traitement de la vignette
         if (message.tailleV != '0') {
             fichCib = path.join(dossierPrincipal, newVng) ;
-            await retailleImage.retailleImage(fichImg, fichCib, message.tailleV, message.tailleT) ;
+            await retailleImage.retailleImage({
+                source: fichImg, 
+                cible: fichCib, taille: 
+                message.tailleV, 
+                type: message.tailleT}) ;
         }
 
         if (siZoomImageTitre(context, message.presentation)) {

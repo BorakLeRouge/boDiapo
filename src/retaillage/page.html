@@ -1,0 +1,46 @@
+<!doctype html>
+ 
+<html lang="fr">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="<chemin/>/page.css" rel="stylesheet" />
+    <title>BoNote</title>
+</head>
+ 
+<body>
+ 
+<h2>BoDiapo - Retaillage d'image</h2> 
+
+<p><label>Choix de l'image à retailler :</label>
+    <button onclick="choisirImage()" >Choisir Image...</button> <span id="image"></span></p>
+
+<p><label>Taille maximum :</label> <input id="taille" type="number"
+value="2048" /></p>
+
+
+<p><label>Rapport proportionnel :</label>
+    <select id="rapport">
+        <option selected="selected">Hauteur ou Largeur</option>
+        <option>Hauteur</option>
+        <option>Largeur</option>
+    </select>   
+</p>
+
+<p><label>Qualité :</label>
+    <select id="quality">
+        <option>65</option>
+        <option>70</option>
+        <option selected="selected">75</option>
+        <option>80</option>
+        <option>90</option>
+    </select>
+</p>
+
+<p><label></label> <button id="retailleBtn" onclick="demandeRetaillage()" disabled="disabled">Retailler l'image...</button>
+
+<script type="text/javascript" src="<chemin/>/pageInterface.js"></script>
+
+</body>
+</html>

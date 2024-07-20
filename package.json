@@ -28,6 +28,11 @@
         "command": "bodiapo.retaillage",
         "title": "Retaillage d'image",
         "category": "boDiapo"
+      } ,
+      {
+        "command": "bodiapo.retouchePageDiapo",
+        "title": "Retouche de la page Diaporama",
+        "category": "boDiapo"
       }
     ]
   },

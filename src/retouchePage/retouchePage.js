@@ -104,26 +104,22 @@ const retouchePage = function(context) {
 function preparationPageHtml(context, webview, lignes) {
 
     // Calcul de la liste
-    let ret = '<table class="reduitImage">' ;
+    let ret = '<table id="tableElt" class="reduitImage">' ;
     for(let i in lignes) {
         let ligne = lignes[i] ;
-        let cache = false ;
         let classCache = '' ;
-        if (ligne.ligne.includes('<!-- ')) {
-            cache = true ;
+        if (ligne.cache) {
             classCache = 'cache' ;
         }
-        ret += '<tr class="'+classCache+'"><td><img src="' + webview.asWebviewUri(vscode.Uri.parse(ligne.image)) + '" noligne="'+i+'" />' ;
-        ret += '<td><p>Position : '+i ;
-        if (cache) {
-            ret += '</p><p><button onclick="montrer('+i+')">Montrer</button>' ;
-        } else {
-            ret += '</p><p><button onclick="cacher('+i+')">Cacher</button>' ;
-        }
+        let ii = 1 + Number(i) ;
+        ret += '<tr id="pos'+i+'" class="'+classCache+'" position="'+i+'">' ;
+        ret += '<td>' + ii + '</td>'
+        ret += '<td><img src="' + webview.asWebviewUri(vscode.Uri.parse(ligne.image)) + '" /></td>' ;
+        ret += '<td><p><button onclick="montrerCacher('+i+')">Montrer/Cacher</button>' ;
         ret += '</p><p><button onclick="deplacer('+i+')">Déplacer en position : </button> <input type="number" name="position" value="'+i+'"/>' ;
-        ret += '<br /><button onclick="monter('+i+')">Monter</button> <button onclick="descendre('+i+')">Descendre</button>' ;
+        ret += '<br /><button onclick="deplacer('+i+',\'H\')">Monter</button> <button onclick="deplacer('+i+',\'B\')">Descendre</button>' ;
         ret += '</p></td>' ;
-        ret += "</td></tr>\r\n" ;
+        ret += "</td></tr>" ;
     }
     ret += '</table>' ;
 
@@ -160,6 +156,11 @@ function preparationPageHtml(context, webview, lignes) {
     // * * Extraction des lignes * *
     for (let lign of tab) {
         if (lign.trim() != '') {
+            let cache = false ;
+            if (lign.includes('<!-- ')) {
+                cache = true ;
+                lign = lign.replaceAll('<!--', '').replaceAll('-->', '')
+            }
             let image ;
             if (presVignette) {
                 p1 = lign.indexOf('vignette-') ;
@@ -168,7 +169,7 @@ function preparationPageHtml(context, webview, lignes) {
             }
             p2 = lign.indexOf('"', p1) ;
             image = path.join(dossierPrincipal,lign.substring(p1, p2)) ;
-            retour.push({image: image, ligne: lign}) ;
+            retour.push({image: image, ligne: lign.trim(), cache: cache}) ;
         }
     }
     return retour ;

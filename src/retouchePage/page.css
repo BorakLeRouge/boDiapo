@@ -63,6 +63,9 @@ label {
 td {
     padding: 0.5em ;
 }
+td:first-child {
+    font-size: 2em ;
+}
 .validation {
     display: inline-block ;
     position: fixed;

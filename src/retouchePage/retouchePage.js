@@ -116,7 +116,7 @@ function preparationPageHtml(context, webview, lignes) {
         ret += '<td>' + ii + '</td>'
         ret += '<td><img src="' + webview.asWebviewUri(vscode.Uri.parse(ligne.image)) + '" /></td>' ;
         ret += '<td><p><button onclick="montrerCacher('+i+')">Montrer/Cacher</button>' ;
-        ret += '</p><p><button onclick="deplacer('+i+')">Déplacer en position : </button> <input type="number" name="position" value="'+i+'"/>' ;
+        ret += '</p><p><button onclick="deplacer('+i+')">Déplacer en position : </button> <input type="number" name="position" value="'+ii+'"/>' ;
         ret += '<br /><button onclick="deplacer('+i+',\'H\')">Monter</button> <button onclick="deplacer('+i+',\'B\')">Descendre</button>' ;
         ret += '</p></td>' ;
         ret += "</td></tr>" ;

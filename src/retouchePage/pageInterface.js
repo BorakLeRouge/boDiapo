@@ -61,19 +61,26 @@ function deplacer(pos, direction='') {
         let suivant = tr.nextSibling  ;
         if (suivant == undefined) { return ; }
         suivant.insertAdjacentElement('afterend', tr) ;
-        renumerote() ;
     }
     // * * Si "Haut" * *
-    if (direction == 'H') {
+    else if (direction == 'H') {
         let preced = tr.previousSibling  ;
         if (preced == undefined) { return ; }
         preced.insertAdjacentElement('beforebegin', tr) ;
-        renumerote() ;
     }
     // * * Si déplacement * *
-    if (direction == '') {
-        
+    else {
+        let noCible = tr.children[2].children[1].children[1].value ;
+        if (noCible < 1) { noCible = 1 ; }
+        if (noCible > infoLignes.length) { noCible = infoLignes.length ; }
+        console.log(noCible, pos, infoLignes.length) ;
+        if (noCible == pos) { return ; }
+        {
+            let cible = document.getElementById('tableElt').getElementsByTagName('TR')[noCible - 1] ;
+            cible.insertAdjacentElement('beforebegin', tr) ;
+        } 
     }
+    renumerote() ;
 }
 
 // * * * Renumérote * * *
@@ -84,6 +91,7 @@ function renumerote() {
     for (let tr of tbTr) {
         cpt = cpt + 1 ;
         tr.firstChild.innerHTML = cpt ;
+        tr.children[2].children[1].children[1].value = cpt ;
     }
 }
 

@@ -79,6 +79,10 @@ const retouchePage = function(context) {
                     clog('Interface clog', message.message) ;
                     break ;
                 }
+                case 'validation': {
+                    clog('contenu valide : ', message.contenu) ;
+                    break ;
+                }
                 default : {
                     vscode.window.showErrorMessage('Message non traité : '+message.action);
                     break ;

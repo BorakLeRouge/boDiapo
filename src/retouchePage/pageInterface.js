@@ -12,7 +12,7 @@ const vscode = acquireVsCodeApi() ;
 // ==============================================================
 // * * * Reception du script VsCode
 
-let infoLignes = '' ;
+let infoLignes ;
 
 // * * * Reception Messages envoyés par la partie VSCode de l'application
 window.addEventListener('message', event => {
@@ -85,6 +85,22 @@ function deplacer(pos, direction='') {
         }
     }
     renumerote() ;
+}
+
+// * * * Validation * * *
+function valider() {
+    // On boucle sur le tableau pour récupére les identifiants (on retire le "pos")
+    let tbTr = document.getElementById('tableElt').getElementsByTagName('TR') ;
+    let res = '' ;
+    for (let tr of tbTr) {
+        let id = Number(tr.id.substring(3))
+        if (tr.className.includes('cache')) {
+            res += '<!-- ' + infoLignes[id].ligne + " -->\r\n" ;
+        } else {
+            res += infoLignes[id].ligne + "\r\n" ;
+        }
+    }
+    vscode.postMessage({action: 'validation', contenu: res}) ;
 }
 
 // * * * Renumérote * * *

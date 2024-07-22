@@ -74,11 +74,15 @@ function deplacer(pos, direction='') {
         if (noCible < 1) { noCible = 1 ; }
         if (noCible > infoLignes.length) { noCible = infoLignes.length ; }
         console.log(noCible, pos, infoLignes.length) ;
-        if (noCible == pos) { return ; }
-        {
+        if (noCible == pos + 1) { return ; } // Emplacement identique
+        tr.remove()
+        if (noCible < pos +1) { // On monte
             let cible = document.getElementById('tableElt').getElementsByTagName('TR')[noCible - 1] ;
             cible.insertAdjacentElement('beforebegin', tr) ;
-        } 
+        } else { // On descend
+            let cible = document.getElementById('tableElt').getElementsByTagName('TR')[noCible -2] ;
+            cible.insertAdjacentElement('afterend', tr) ;
+        }
     }
     renumerote() ;
 }

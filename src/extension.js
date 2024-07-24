@@ -17,6 +17,12 @@ function activate(context) {
 	});
 	context.subscriptions.push(disposable);
 
+	// * * * Retouche de la page Diapo * * *
+	disposable = vscode.commands.registerCommand('bodiapo.retouchePageDiapo', function () {
+		require('./retouchePage/retouchePage.js').retouchePage(context) ;
+	});
+	context.subscriptions.push(disposable);
+
 }
 
 

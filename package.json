@@ -2,7 +2,7 @@
   "name": "bodiapo",
   "displayName": "boDiapo",
   "description": "Génération d'un diaporama html",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "publisher": "borakLeRouge",
   "icon": "icone.png",
   "repository": {
@@ -27,6 +27,11 @@
       {
         "command": "bodiapo.retaillage",
         "title": "Retaillage d'image",
+        "category": "boDiapo"
+      } ,
+      {
+        "command": "bodiapo.retouchePageDiapo",
+        "title": "Retouche de la page Diaporama",
         "category": "boDiapo"
       }
     ]

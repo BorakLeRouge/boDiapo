@@ -226,8 +226,10 @@ function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, tex
     // Preparation du fichier index.html
     let ficSou = path.join(adrSource,'index.html') ;
     let ficCib = path.join(dossierPrincipal, 'index.html') ;
+    let ficSav = path.join(dossierPrincipal, 'index.save') ;
     let cont = fs.readFileSync(ficSou, 'utf8').replaceAll('**Titre**', titre).replaceAll('**Prep**', prep).replaceAll('**Retour**', lienRetour) ;
     fs.writeFileSync(ficCib, cont, 'utf8') ;
+    fs.writeFileSync(ficSav, cont, 'utf8') ;
 
     // Preparation du fichier style.css
     ficSou = path.join(adrSource, 'index.css') ;

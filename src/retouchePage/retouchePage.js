@@ -24,6 +24,7 @@ const retouchePage = function(context) {
 
     let dossierPrincipal = vscode.workspace.workspaceFolders[0].uri.fsPath ;
     let fichIndex = path.join(dossierPrincipal, 'index.html') ;
+
     if (!fs.existsSync(fichIndex)){
         vscode.window.showErrorMessage('Ce n\'est pas une page diaporama (pas de fichier index.html).') ;
         clog('Ce n\'est pas une page diaporama.') ;
@@ -80,7 +81,12 @@ const retouchePage = function(context) {
                     break ;
                 }
                 case 'validation': {
-                    clog('contenu valide : ', message.contenu) ;
+                    validationModification(fichIndex, message.contenu) ;
+                    break ;
+                }
+                case 'visualisation' : {
+                    let visuFichier = vscode.Uri.file(fichIndex) ;
+                    vscode.env.openExternal(visuFichier) ;
                     break ;
                 }
                 default : {
@@ -178,3 +184,30 @@ function preparationPageHtml(context, webview, lignes) {
     }
     return retour ;
  }
+
+ // ======================================================================================================================================================
+ //  V   V    A    L      III  DDD      A    TTTTT  III   OOO   N   N       M   M   OOO   DDD    III  FFFFF  III   CCC     A    TTTTT  III   OOO   N   N
+ //  V   V   A A   L       I   D  D    A A     T     I   O   O  NN  N       MM MM  O   O  D  D    I   F       I   C   C   A A     T     I   O   O  NN  N
+ //  V   V  A   A  L       I   D   D  A   A    T     I   O   O  N N N       M M M  O   O  D   D   I   FFF     I   C      A   A    T     I   O   O  N N N
+ //   V V   AAAAA  L       I   D   D  AAAAA    T     I   O   O  N  NN       M   M  O   O  D   D   I   F       I   C      AAAAA    T     I   O   O  N  NN
+ //   V V   A   A  L       I   D  D   A   A    T     I   O   O  N   N       M   M  O   O  D  D    I   F       I   C   C  A   A    T     I   O   O  N   N
+ //    V    A   A  LLLLL  III  DDD    A   A    T    III   OOO   N   N       M   M   OOO   DDD    III  F      III   CCC   A   A    T    III   OOO   N   N
+ // ======================================================================================================================================================
+ // * * * Validation modification
+function validationModification(fichIndex, contenu) {
+
+    // Lecture du fichier index
+    let cont = fs.readFileSync(fichIndex, 'utf-8') ;
+
+    // Réinsertion du contenu
+    let p1 = cont.indexOf('<div class="blocimage">') ;
+    let p2 = cont.indexOf('</div>', p1) ;
+    cont = cont.substring(0, p1) + '<div class="blocimage">' + "\r\n" + contenu + cont.substring(p2) ;
+
+    // Ecriture du fichier index
+    fs.writeFileSync(fichIndex, cont, 'utf-8') ;
+
+    // Message
+    vscode.window.showInformationMessage('Mise à jour effectuée !')
+
+}

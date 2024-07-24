@@ -71,8 +71,9 @@ td:first-child {
     position: fixed;
     top: 2em ;
     right: 2em ;
+    text-align: right ;
 }
-.validation button {
+#btnValidation {
     font-size: 1.5em ;
 }
 .cache {

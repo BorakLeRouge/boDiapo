@@ -40,6 +40,7 @@ vscode.postMessage({action: 'recupLignes'}) ;
 
 // * * * Action Montrer/Cacher * * *
 function montrerCacher(pos) {
+    document.getElementById('btnValidation').removeAttribute("disabled") ;
     let id = 'pos' + pos ;
     let tr = document.getElementById(id) ;
     if (tr.className.includes('cache')) {
@@ -52,6 +53,7 @@ function montrerCacher(pos) {
 
 // * * * Déplacer les lignes * * *
 function deplacer(pos, direction='') {
+    document.getElementById('btnValidation').removeAttribute("disabled") ;
     console.log('direction', direction)
     // * * Lignes de base * *
     let id = 'pos' + pos ;
@@ -89,6 +91,7 @@ function deplacer(pos, direction='') {
 
 // * * * Validation * * *
 function valider() {
+    document.getElementById('btnValidation').setAttribute("disabled", "disabled") ;
     // On boucle sur le tableau pour récupére les identifiants (on retire le "pos")
     let tbTr = document.getElementById('tableElt').getElementsByTagName('TR') ;
     let res = '' ;
@@ -113,6 +116,11 @@ function renumerote() {
         tr.firstChild.innerHTML = cpt ;
         tr.children[2].children[1].children[1].value = cpt ;
     }
+}
+
+// * * * prévisualisation * * *
+function visuResultat() {
+    vscode.postMessage({action: 'visualisation'}) ;
 }
 
 // =========================================

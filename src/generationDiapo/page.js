@@ -2,9 +2,9 @@
 const vscode        = require('vscode') ;
 const path          = require('path') ;
 const fs            = require('fs') ;
-const retailleImage = require('./retailleImage.js')
+const retailleImage = require('../retailleImage.js')
 
-const outputMngr    = require('./outputMngr.js') ;
+const outputMngr    = require('../outputMngr.js') ;
 //outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
@@ -62,8 +62,8 @@ exports.affichPage = function(context) {
 // * * * Préparation de la page * * *
 function preparationPageHtml(context, webview) {
     // Adresse de base
-    let adrFich = path.join(context.extensionPath, 'src', 'page.html') ;
-    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src'));
+    let adrFich = path.join(context.extensionPath, 'src', 'generationDiapo', 'page.html') ;
+    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src', 'generationDiapo'));
     let adrPage = path.join(context.extensionPath, 'src', 'page') ;
 
     // Récupération des types de présentation
@@ -196,7 +196,7 @@ async function genererDiaporama(context, webview, message)  {
     }
 
     // Preparation de la page
-    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation, message.retourHome) ;
+    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation, message.retourHome, cpt, message.tailleI, message.tailleT, message.tailleV) ;
 }
 
 // * * * Purge avant insertion
@@ -212,7 +212,7 @@ function purgeFichier(dossierPrincipal) {
 }
 
 // * * * Alimentation restante du dossier, element html,css
-function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation, retourHome) {
+function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation, retourHome, compteurImage, tailleI, tailleT, tailleV) {
     // Préparation Variable
     let adrSource    = path.join(context.extensionPath, 'src', 'page', presentation) ;
     let adrZoomimage = path.join(context.extensionPath, 'src', 'zoomimage') ;
@@ -245,6 +245,21 @@ function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, tex
         ficCib = path.join(dossierPrincipal, nomFic) ;
         fs.copyFileSync(ficSou, ficCib)
     }
+
+    // sauvegarde des parametres
+    let param = {
+        titre,
+        fondColor, 
+        texteColor, 
+        presentation, 
+        retourHome, 
+        compteurImage, 
+        tailleI, 
+        tailleT, 
+        tailleV
+    } ;
+    let ficParam = path.join(dossierPrincipal, 'index.json') ;
+    fs.writeFileSync(ficParam, JSON.stringify(param), 'utf8') ;
 }
 
 // * * * Visualisation du résultat * * *

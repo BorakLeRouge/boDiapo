@@ -5,9 +5,12 @@ const vscode = require('vscode');
  */
 function activate(context) {
 
+	// * * * Menu BoDiapo * * *
+	
+
 	// * * * Création d'un diaporama * * *
 	let disposable = vscode.commands.registerCommand('bodiapo.bodiapo', function () {
-		require('./page.js').affichPage(context) ;
+		require('./generationDiapo/page.js').affichPage(context) ;
 	});
 	context.subscriptions.push(disposable);
 

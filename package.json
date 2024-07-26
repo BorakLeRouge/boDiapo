@@ -20,18 +20,13 @@
   "contributes": {
     "commands": [
       {
-        "command": "bodiapo.bodiapo",
-        "title": "Génération d'un diaporama html",
+        "command": "bodiapo.bodiapoMenu",
+        "title": "Générateur de Diaporama html",
         "category": "boDiapo"
       } ,
       {
         "command": "bodiapo.retaillage",
         "title": "Retaillage d'image",
-        "category": "boDiapo"
-      } ,
-      {
-        "command": "bodiapo.retouchePageDiapo",
-        "title": "Retouche de la page Diaporama",
         "category": "boDiapo"
       }
     ]

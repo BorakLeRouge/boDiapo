@@ -6,7 +6,7 @@ const fs            = require('fs') ;
 
 // * * * Clog * * *
 const outputMngr    = require('../outputMngr.js') ;
-outputMngr.clogActivation() ;
+//outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // ==========================================================================================

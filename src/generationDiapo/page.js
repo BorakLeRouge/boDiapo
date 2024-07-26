@@ -9,7 +9,7 @@ const outputMngr    = require('../outputMngr.js') ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // Affichage de la page
-exports.affichPage = function(context) {
+exports.affichPage = async function(context) {
 
     const panel = vscode.window.createWebviewPanel(
         'boDiapo',

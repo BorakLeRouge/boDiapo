@@ -172,16 +172,16 @@ async function genererDiaporama(context, webview, message)  {
         if (siZoomImageTitre(context, message.presentation)) {
             let titre = nom2Titre(nomImg) ;
             // Preparation contenu html avec titre
-            prep += "\r\n" + '<span class="blocPhoto">' + "\r\n"  ;
+            prep += '<span class="blocPhoto">' ;
             if (message.tailleI != '0' && message.tailleV != '0') {
-                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             } else if (message.tailleI != '0'){
-                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             } else if (message.tailleV != '0'){
-                prep += '<a href="'+newVng+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newVng+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             }
-            prep += '<span class="comment">'+titre+'</span>' + "\r\n"  ;
-            prep += '</span>' + "\r\n\r\n"  ;
+            prep += '<span class="comment">'+titre+'</span>'  ;
+            prep += '</span>' + "\r\n"  ;
 
         } else {
             // Preparation contenu html std

@@ -83,6 +83,7 @@ const menu = async function(context) {
                 }
                 case 'ajouterImages': {
                     ajouterImages(context) ;
+                    // panel.dispose() ;
                     break ;
                 }
                 case 'reorganiser': {
@@ -133,7 +134,8 @@ function genererDiapo(context) {
 }
 
 function ajouterImages(context) {
-    clog('ajouterImages')
+    let module = require('../ajoutImages/page.js') ; 
+    module.affichPage(context) ;
     return ;
 }
 

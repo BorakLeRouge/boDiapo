@@ -1,0 +1,46 @@
+a, .link {
+    text-decoration: none ;
+    color: var(--vscode-textLink-foreground);
+}
+a:hover, a:focus, .link:hover, .link:focus {
+    text-decoration: underline ;
+    color: var(--vscode-textLink-activeForeground) ;
+    background-color: var(--vscode-list-hoverBackground) ;
+
+}
+ul {
+    padding-inline-start: 1.2em ;
+}
+
+.textCentre {
+    text-align: center ;
+}
+
+input, select {
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border-width: 0 ;
+}
+button {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+}
+button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+button:disabled {
+    background-color: var(--vscode-disabledForeground);
+}
+input[type="checkbox"] {
+    position: relative ;
+    top: 0.15em ;
+    background-color: var(--vscode-checkbox-background);
+    color: var(--vscode-checkbox-foreground);
+    border-color: var(--vscode-checkbox-border);
+}
+
+fieldset {
+    margin-top: 0.8em ;
+    margin-bottom: 1.2em ;
+    border-radius: 0.7em ;
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+ 
+<html lang="fr">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="<chemin/>/page.css" rel="stylesheet" />
+    <title>BoDiapo - Préparation</title>
+</head>
+ 
+<body>
+ 
+<h2>BoDiapo</h2> 
+
+<p>Ajout d'un dossier contenant toutes les images :
+<button onclick="choisirDossier()" >Choisir Dossier...</button> <span id="dossier"></span>
+</p>
+
+<p>Ajout d'une image :
+<button onclick="choisirImage()" >Choisir Image...</button> <span id="image"></span>
+</p>
+
+</fieldset>
+
+<p class="textCentre"><button id="generateBtn" onclick="genererDiaporama()" disabled="disabled">Compléter le Diaporama...</button> - 
+<button id="visuResultat" onclick="visuResultat()">Voir le résultat...</button></p>
+
+<p class="textCentre"><button id="retourMenu" onclick="retourMenu()">Retour Menu...</button></p>
+
+<script type="text/javascript" src="<chemin/>/pageInterface.js"></script>
+
+</body>
+</html>

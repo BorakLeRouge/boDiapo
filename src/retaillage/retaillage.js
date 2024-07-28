@@ -6,7 +6,7 @@ const retailleImage = require('../retailleImage.js')
 
 // * * * Clog * * *
 const outputMngr    = require('../outputMngr.js') ;
-outputMngr.clogActivation() ;
+// outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // * * * Affichage de la page de saisie * * *

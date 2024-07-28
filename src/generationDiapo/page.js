@@ -2,26 +2,17 @@
 const vscode        = require('vscode') ;
 const path          = require('path') ;
 const fs            = require('fs') ;
-const retailleImage = require('./retailleImage.js')
+const retailleImage = require('../retailleImage.js') ;
+const commun        = require('../commun.js') ;
 
-const outputMngr    = require('./outputMngr.js') ;
+const outputMngr    = require('../outputMngr.js') ;
 //outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // Affichage de la page
-exports.affichPage = function(context) {
+exports.affichPage = async function(context) {
 
-    const panel = vscode.window.createWebviewPanel(
-        'boDiapo',
-        'boDiapo',
-        vscode.ViewColumn.One,
-        {
-          // Enable scripts in the webview
-          enableScripts: true,
-          // Garde le contenu quand la page est cachée
-          retainContextWhenHidden: true
-        }
-    );
+    let panel = commun.panelRecup(context) ;
     
     // * * * Alimentation du contenu html de base * * *
     panel.webview.html = preparationPageHtml(context, panel.webview);
@@ -46,6 +37,11 @@ exports.affichPage = function(context) {
                     visuResultat() ;
                     break ;
                 }
+                case 'retourMenu': {
+                    let retour = require('../Menu/menu.js')
+                    retour.menu(context) ;
+                    break ;
+                }
                 default : {
                     vscode.window.showErrorMessage('Message non traité : '+message.action);
                     break ;
@@ -62,8 +58,8 @@ exports.affichPage = function(context) {
 // * * * Préparation de la page * * *
 function preparationPageHtml(context, webview) {
     // Adresse de base
-    let adrFich = path.join(context.extensionPath, 'src', 'page.html') ;
-    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src'));
+    let adrFich = path.join(context.extensionPath, 'src', 'generationDiapo', 'page.html') ;
+    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src', 'generationDiapo'));
     let adrPage = path.join(context.extensionPath, 'src', 'page') ;
 
     // Récupération des types de présentation
@@ -78,6 +74,14 @@ function preparationPageHtml(context, webview) {
     // Préparation page
     let contenuPage = fs.readFileSync(adrFich, 'utf-8') ;
     contenuPage = contenuPage.replaceAll('<chemin/>', cheminW).replaceAll('<optionsPres/>', optionsPres) ;
+
+    // Bouton de retour
+    if (commun.siDossierAlimente()) {
+        contenuPage = contenuPage.replaceAll('<retourBouton/>', '<p class="textCentre"><button onclick="retourMenu()">Retour Menu...</button></p>') ;
+    } else {
+        contenuPage = contenuPage.replaceAll('<retourBouton/>', '<p class="textCentre invisible" id="retourMenu"><button onclick="retourMenu()">Retour Menu...</button></p>') ;
+    } 
+
     return contenuPage ;
 }
 
@@ -172,16 +176,16 @@ async function genererDiaporama(context, webview, message)  {
         if (siZoomImageTitre(context, message.presentation)) {
             let titre = nom2Titre(nomImg) ;
             // Preparation contenu html avec titre
-            prep += "\r\n" + '<span class="blocPhoto">' + "\r\n"  ;
+            prep += '<span class="blocPhoto">' ;
             if (message.tailleI != '0' && message.tailleV != '0') {
-                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             } else if (message.tailleI != '0'){
-                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newImg+'" class="zoomimage"><img src="'+newImg+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             } else if (message.tailleV != '0'){
-                prep += '<a href="'+newVng+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' + "\r\n" ; 
+                prep += '<a href="'+newVng+'" class="zoomimage"><img src="'+newVng+'" alt="'+newAlt+'" class="photo" /></a>' ; 
             }
-            prep += '<span class="comment">'+titre+'</span>' + "\r\n"  ;
-            prep += '</span>' + "\r\n\r\n"  ;
+            prep += '<span class="comment">'+titre+'</span>'  ;
+            prep += '</span>' + "\r\n"  ;
 
         } else {
             // Preparation contenu html std
@@ -196,7 +200,7 @@ async function genererDiaporama(context, webview, message)  {
     }
 
     // Preparation de la page
-    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation, message.retourHome) ;
+    alimentationPage(context, dossierPrincipal, message.titre, prep, message.fondColor, message.texteColor, message.presentation, message.retourHome, cpt, message.tailleI, message.tailleT, message.tailleV) ;
 }
 
 // * * * Purge avant insertion
@@ -212,7 +216,7 @@ function purgeFichier(dossierPrincipal) {
 }
 
 // * * * Alimentation restante du dossier, element html,css
-function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation, retourHome) {
+function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, texteColor, presentation, retourHome, compteurImage, tailleI, tailleT, tailleV) {
     // Préparation Variable
     let adrSource    = path.join(context.extensionPath, 'src', 'page', presentation) ;
     let adrZoomimage = path.join(context.extensionPath, 'src', 'zoomimage') ;
@@ -245,6 +249,21 @@ function alimentationPage(context, dossierPrincipal, titre, prep, fondColor, tex
         ficCib = path.join(dossierPrincipal, nomFic) ;
         fs.copyFileSync(ficSou, ficCib)
     }
+
+    // sauvegarde des parametres
+    let param = {
+        titre,
+        fondColor, 
+        texteColor, 
+        presentation, 
+        retourHome, 
+        compteurImage, 
+        tailleI, 
+        tailleT, 
+        tailleV
+    } ;
+    let ficParam = path.join(dossierPrincipal, 'index.json') ;
+    fs.writeFileSync(ficParam, JSON.stringify(param), 'utf8') ;
 }
 
 // * * * Visualisation du résultat * * *

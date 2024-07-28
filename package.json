@@ -2,7 +2,7 @@
   "name": "bodiapo",
   "displayName": "boDiapo",
   "description": "Génération d'un diaporama html",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "publisher": "borakLeRouge",
   "icon": "icone.png",
   "repository": {
@@ -20,18 +20,13 @@
   "contributes": {
     "commands": [
       {
-        "command": "bodiapo.bodiapo",
-        "title": "Génération d'un diaporama html",
+        "command": "bodiapo.bodiapoMenu",
+        "title": "Générateur de Diaporama html",
         "category": "boDiapo"
       } ,
       {
         "command": "bodiapo.retaillage",
         "title": "Retaillage d'image",
-        "category": "boDiapo"
-      } ,
-      {
-        "command": "bodiapo.retouchePageDiapo",
-        "title": "Retouche de la page Diaporama",
         "category": "boDiapo"
       }
     ]

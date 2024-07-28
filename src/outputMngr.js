@@ -51,6 +51,7 @@ const getTime = function() {
 // Appel console déplacé dans l'outputMngr
 const clogActivation = function () {
     outputMngr.clogActif = true ;
+    clog('* * * ActivationClog * * *')
 }
 const clogInactivation = function () {
     outputMngr.clogActif = false ;

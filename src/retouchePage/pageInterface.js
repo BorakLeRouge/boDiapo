@@ -38,6 +38,11 @@ vscode.postMessage({action: 'recupLignes'}) ;
 // * * * Actions
 
 
+// * * * Retour Menu * * *
+function retourMenu() {
+    vscode.postMessage({action: 'retourMenu'})
+}
+
 // * * * Action Montrer/Cacher * * *
 function montrerCacher(pos) {
     document.getElementById('btnValidation').removeAttribute("disabled") ;

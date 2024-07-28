@@ -44,3 +44,7 @@ fieldset {
     margin-bottom: 1.2em ;
     border-radius: 0.7em ;
 }
+
+.invisible {
+    display: none ;
+}

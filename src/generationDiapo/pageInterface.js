@@ -15,6 +15,11 @@ window.addEventListener('message', event => {
     }
 } )
 
+// * * * Retour au Menu * * *
+function retourMenu() {
+    vscode.postMessage({action: 'retourMenu'})
+}
+
 // * * * Actions * * *
 function choisirDossier() {
     vscode.postMessage({action: 'choisirDossier'})
@@ -29,6 +34,7 @@ function genererDiaporama() {
     let texteColor   = document.getElementById('texteColor').value ;
     let presentation = document.getElementById('presentation').value ;
     let retourHome   = document.getElementById('retourHome').value ;
+    document.getElementById('retourMenu').className = 'textCentre' ;
     vscode.postMessage({
         action: 'genererDiaporama'
         , tailleV, tailleI, tailleT, dossier, titre, fondColor, texteColor, presentation, retourHome

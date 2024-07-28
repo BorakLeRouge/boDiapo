@@ -2,7 +2,8 @@
 const vscode        = require('vscode') ;
 const path          = require('path') ;
 const fs            = require('fs') ;
-const retailleImage = require('../retailleImage.js')
+const retailleImage = require('../retailleImage.js') ;
+const commun        = require('../commun.js') ;
 
 const outputMngr    = require('../outputMngr.js') ;
 //outputMngr.clogActivation() ;
@@ -11,17 +12,7 @@ function clog(...tb) { outputMngr.clog(tb) }
 // Affichage de la page
 exports.affichPage = async function(context) {
 
-    const panel = vscode.window.createWebviewPanel(
-        'boDiapo',
-        'boDiapo',
-        vscode.ViewColumn.One,
-        {
-          // Enable scripts in the webview
-          enableScripts: true,
-          // Garde le contenu quand la page est cachée
-          retainContextWhenHidden: true
-        }
-    );
+    let panel = commun.panelRecup(context) ;
     
     // * * * Alimentation du contenu html de base * * *
     panel.webview.html = preparationPageHtml(context, panel.webview);
@@ -44,6 +35,11 @@ exports.affichPage = async function(context) {
                 }
                 case 'visuResultat': {
                     visuResultat() ;
+                    break ;
+                }
+                case 'retourMenu': {
+                    let retour = require('../Menu/menu.js')
+                    retour.menu(context) ;
                     break ;
                 }
                 default : {
@@ -78,6 +74,14 @@ function preparationPageHtml(context, webview) {
     // Préparation page
     let contenuPage = fs.readFileSync(adrFich, 'utf-8') ;
     contenuPage = contenuPage.replaceAll('<chemin/>', cheminW).replaceAll('<optionsPres/>', optionsPres) ;
+
+    // Bouton de retour
+    if (commun.siDossierAlimente()) {
+        contenuPage = contenuPage.replaceAll('<retourBouton/>', '<p class="textCentre"><button onclick="retourMenu()">Retour Menu...</button></p>') ;
+    } else {
+        contenuPage = contenuPage.replaceAll('<retourBouton/>', '<p class="textCentre invisible" id="retourMenu"><button onclick="retourMenu()">Retour Menu...</button></p>') ;
+    } 
+
     return contenuPage ;
 }
 

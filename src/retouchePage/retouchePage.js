@@ -3,6 +3,7 @@
 const vscode        = require('vscode') ;
 const path          = require('path') ;
 const fs            = require('fs') ;
+const commun        = require('../commun.js') ;
 
 // * * * Clog * * *
 const outputMngr    = require('../outputMngr.js') ;
@@ -27,7 +28,6 @@ const retouchePage = function(context) {
 
     if (!fs.existsSync(fichIndex)){
         vscode.window.showErrorMessage('Ce n\'est pas une page diaporama (pas de fichier index.html).') ;
-        clog('Ce n\'est pas une page diaporama.') ;
         return ;
     }
     let contenu   = fs.readFileSync(fichIndex, 'utf-8') ;
@@ -35,7 +35,6 @@ const retouchePage = function(context) {
     // * * * Pas de div boDiapo * * *
     if (!contenu.includes('<div class="blocimage">')) {
         vscode.window.showErrorMessage('Ce n\'est pas une page diaporama.') ;
-        clog('Ce n\'est pas une page diaporama.') ;
         return ;
     }
  
@@ -53,18 +52,8 @@ const retouchePage = function(context) {
     // ========================================================================================
     // * * * interface Web
 
-    const panel = vscode.window.createWebviewPanel(
-        'Retouche Page',
-        'Retouche Page',
-        vscode.ViewColumn.One,
-        {
-          // Enable scripts in the webview
-          enableScripts: true,
-          // Garde le contenu quand la page est cachée
-          retainContextWhenHidden: true
-        }
-    );
-    
+    let panel = commun.panelRecup(context) ;
+
     // * * * Alimentation du contenu html de base * * *
     panel.webview.html = preparationPageHtml(context, panel.webview, lignes);
 
@@ -87,6 +76,11 @@ const retouchePage = function(context) {
                 case 'visualisation' : {
                     let visuFichier = vscode.Uri.file(fichIndex) ;
                     vscode.env.openExternal(visuFichier) ;
+                    break ;
+                }
+                case 'retourMenu': {
+                    let retour = require('../Menu/menu.js')
+                    retour.menu(context) ;
                     break ;
                 }
                 default : {

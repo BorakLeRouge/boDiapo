@@ -1,10 +1,11 @@
 "use strict" ;
-const vscode    = require('vscode') ;
-const path      = require('path') ;
-const fs        = require('fs') ;
+const vscode        = require('vscode') ;
+const path          = require('path') ;
+const fs            = require('fs') ;
+const commun        = require('../commun.js') ;
 
 const outputMngr    = require('../outputMngr.js') ;
-outputMngr.clogActivation() ;
+// outputMngr.clogActivation() ;
 function clog(...tb) { outputMngr.clog(tb) }
 
 // =================================================================================
@@ -28,7 +29,7 @@ const menu = async function(context) {
         vscode.window.showErrorMessage('Nous ne sommes pas dans un dossier !') ;
     }
     let tbDossier = fs.readdirSync(dossierCible) ;
-    let siVide = (tbDossier.length == 0) ; clog(tbDossier.length, tbDossier) ;
+    let siVide = (tbDossier.length == 0) ;
 
     // Si Vide en va directement sur le générateur de Diapo
     if (siVide) {
@@ -52,18 +53,7 @@ const menu = async function(context) {
     }
 
 
-
-    const panel = vscode.window.createWebviewPanel(
-        'boDiapo Menu',
-        'boDiapo Menu',
-        vscode.ViewColumn.One,
-        {
-        // Enable scripts in the webview
-        enableScripts: true,
-        // Garde le contenu quand la page est cachée
-        retainContextWhenHidden: true
-        }
-    );
+    let panel = commun.panelRecup(context) ;
     
     // * * * Alimentation du contenu html de base * * *
     panel.webview.html = preparationPageHtml(context, panel.webview);
@@ -78,17 +68,14 @@ const menu = async function(context) {
                 }
                 case 'genererDiapo': {
                     genererDiapo(context) ;
-                    panel.dispose() ;
                     break ;
                 }
                 case 'ajouterImages': {
                     ajouterImages(context) ;
-                    // panel.dispose() ;
                     break ;
                 }
                 case 'reorganiser': {
                     reorganiser(context) ;
-                    panel.dispose() ;
                     break ;
                 }
                 case 'visualiser': {
@@ -104,10 +91,6 @@ const menu = async function(context) {
         undefined,
         context.subscriptions
     )
-
-
-    vscode.window.showInformationMessage('Coucou') ;
-
 
     return  ;
 }

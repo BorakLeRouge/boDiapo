@@ -43,6 +43,10 @@ function visuResultat() {
     vscode.postMessage({action: 'visuResultat'})
 }
 
+function retourMenu() {
+    vscode.postMessage({action: 'retourMenu'})
+}
+
 // * * * Fonction CLOG à regroupement * * *
 clog('Interface active.');
 function clog(...tb) {

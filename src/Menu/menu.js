@@ -123,8 +123,8 @@ function ajouterImages(context) {
 }
 
 function reorganiser(context) {
-    let module = require('../retouchePage/retouchePage.js') ;
-    module.retouchePage(context) ;
+    let module = require('../reorganisationImage/reorganisationImage.js') ;
+    module.reorganisationImage(context) ;
     return ;
 }
 

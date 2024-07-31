@@ -4,6 +4,7 @@ const vscode        = require('vscode') ;
 const path          = require('path') ;
 const fs            = require('fs') ;
 const commun        = require('../commun.js') ;
+const Uri           = require('url')
 
 // * * * Clog * * *
 const outputMngr    = require('../outputMngr.js') ;
@@ -19,7 +20,7 @@ function clog(...tb) { outputMngr.clog(tb) }
 //  R   R  EEEEE    T     OOO    UUU    CCC   H   H  EEEEE       P      A   A   GGGG  EEEEE
 // ==========================================================================================
 // * * * Affichage de la page de saisie * * *
-const retouchePage = function(context) {
+const reorganisationImage = function(context) {
 
     // * * * Controle si dépot de type diapo et chargement index * * *
 
@@ -94,7 +95,7 @@ const retouchePage = function(context) {
     )
  }
 
- module.exports = { retouchePage } ;
+ module.exports = { reorganisationImage } ;
 
 // =============================================================================================================
 //  PPPP   RRRR   EEEEE  PPPP     A    RRRR     A    TTTTT  III   OOO   N   N       H   H  TTTTT  M   M  L
@@ -128,8 +129,8 @@ function preparationPageHtml(context, webview, lignes) {
     ret += '</table>' ;
 
     // Adresse de base
-    let adrFich = path.join(context.extensionPath, 'src', 'retouchePage' ,'page.html') ;
-    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src', 'retouchePage'));
+    let adrFich = path.join(context.extensionPath, 'src', 'reorganisationImage' ,'page.html') ;
+    let cheminW = webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'src', 'reorganisationImage'));
     let adrPage = path.join(context.extensionPath, 'src', 'retaillage', 'page') ; 
 
     // Préparation page

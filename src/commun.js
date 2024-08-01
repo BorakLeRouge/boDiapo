@@ -22,9 +22,7 @@ const panelRecup = function(context) {
           // Enable scripts in the webview
           enableScripts: true,
           // Garde le contenu quand la page est cachée
-          retainContextWhenHidden: true,
-          // Uri dans Webview ?
-          asWebviewUri: true
+          retainContextWhenHidden: true
         }
     );
 

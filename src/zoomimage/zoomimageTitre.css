@@ -9,6 +9,7 @@ div#zoomimage_fond
    margin: 0 ;
    padding: 0 ;
    text-align: center ;
+   backdrop-filter:blur(10px) ;
 }
 
 div#zoomimage_cadre_0 
